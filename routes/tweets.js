@@ -6,6 +6,11 @@ var twit = new twitter({
   access_token_secret: 'vhHy9MHNSHSjiFeOKKFHPtuTwpQVkrTjzldH0UC0O6pbR',
 });
 
+var elasticsearch = require('elasticsearch');
+var client = new elasticsearch.Client({
+	host: 'localhost:9200',
+});
+
 tweets=[];
 exports.stream = function(req, res){
 	twit.stream('statuses/sample', function(stream){
@@ -19,5 +24,19 @@ exports.stream = function(req, res){
 		console.log("Done");
 	}, 3000)
 
+	});
+}
+
+exports.search = function(req, res){
+
+	client.ping({
+	  requestTimeout: 1000,
+	  hello: "elasticsearch!"
+	}, function (error) {
+		if(error) {
+		console.error('elasticsearch cluster is down!');
+	} else {
+		console.log('All is well');
+	}
 	});
 }

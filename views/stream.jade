@@ -1,0 +1,13 @@
+extends layout
+
+block content
+ h1= title
+ table
+  each person in tweets
+   tr
+   td
+    img(src='#{person.user.profile_image_url}')
+   td
+    | <strong>#{person.user.screen_name}</strong>
+   td
+    | #{person.text}

@@ -6,13 +6,16 @@ var twit = new twitter({
   access_token_secret: 'vhHy9MHNSHSjiFeOKKFHPtuTwpQVkrTjzldH0UC0O6pbR',
 });
 
+tweets=[];
 exports.stream = function(req, res){
 	twit.stream('statuses/sample', function(stream){
 		stream.on('data', function(data){
-			console.log(data);
+			// console.log(data);
+			tweets.push(data);
 		});
 	setTimeout(function(){
-				stream.destroy();
+		res.render('stream', {title: 'Twitter Stream', tweets: tweets});
+		stream.destroy();
 		console.log("Done");
 	}, 3000)
 

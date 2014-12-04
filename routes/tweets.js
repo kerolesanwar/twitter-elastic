@@ -73,6 +73,7 @@ exports.search = function(req, res){
 		}, function(err, resp) {
 				console.log(err);
 				console.log(resp.hits.hits);
+				res.render('search', {title: 'Search Results', result: resp.hits.hits})
 		});
 	}
 

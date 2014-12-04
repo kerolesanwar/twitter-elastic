@@ -17,6 +17,7 @@ exports.stream = function(req, res){
 		stream.on('data', function(data){
 			// console.log(data);
 			tweets.push(data);
+			saveToElasticSearch(data);
 		});
 	setTimeout(function(){
 		res.render('stream', {title: 'Twitter Stream', tweets: tweets});
@@ -25,6 +26,24 @@ exports.stream = function(req, res){
 	}, 3000)
 
 	});
+
+	function saveToElasticSearch(tweet){
+
+		client.index({
+			index: 'tweets',
+			type: 'tweet',
+			body: {
+				username: tweet.user.screen_name,
+      			status: tweet.text,
+     			date: tweet.created_at,
+      			retweets: tweet.retweet_count,
+      			lang: tweet.lang
+			}
+		}, function(err, resp) {
+			console.log(err);
+			console.log(resp);
+		});
+	}
 }
 
 exports.search = function(req, res){
@@ -39,4 +58,5 @@ exports.search = function(req, res){
 		console.log('All is well');
 	}
 	});
+
 }

@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/stream', tweets.stream);
+app.use('/search/:name', tweets.search);
 app.use('/search', tweets.search);
 
 // catch 404 and forward to error handler

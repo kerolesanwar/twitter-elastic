@@ -48,15 +48,33 @@ exports.stream = function(req, res){
 
 exports.search = function(req, res){
 
-	client.ping({
-	  requestTimeout: 1000,
-	  hello: "elasticsearch!"
-	}, function (error) {
-		if(error) {
-		console.error('elasticsearch cluster is down!');
-	} else {
-		console.log('All is well');
+	// client.ping({
+	//   requestTimeout: 1000,
+	//   hello: "elasticsearch!"
+	// }, function (error) {
+	// 	if(error) {
+	// 	console.error('elasticsearch cluster is down!');
+	// } else {
+	// 	console.log('All is well');
+	// }
+	// });
+	if(req.params != null){
+		var name = req.params.name
+		client.search({
+			index: 'tweets',
+			body: {
+				query: {
+					match: {
+						username: name
+					}
+				}
+			}
+
+		}, function(err, resp) {
+				console.log(err);
+				console.log(resp.hits.hits);
+		});
 	}
-	});
+
 
 }

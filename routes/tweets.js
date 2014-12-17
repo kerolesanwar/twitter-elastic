@@ -35,6 +35,7 @@ exports.stream = function(req, res){
 			type: 'tweet',
 			body: {
 				username: tweet.user.screen_name,
+				profileImg: tweet.user.profile_image_url,
       			status: tweet.text,
      			date: tweet.created_at,
       			retweets: tweet.retweet_count,

@@ -23,6 +23,7 @@ exports.stream = function(req, res){
 		res.render('stream', {title: 'Twitter Stream', tweets: tweets});
 		stream.destroy();
 		console.log("Done");
+		console.log(tweets[0]);
 	}, 3000)
 
 	});
@@ -48,8 +49,8 @@ exports.stream = function(req, res){
 
 exports.search = function(req, res){
 
-	if(req.params != null){
-		var name = req.params.name
+	if(req.query.name){
+		var name = req.query.name;
 		client.search({
 			index: 'tweets',
 			body: {

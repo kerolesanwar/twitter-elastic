@@ -3,3 +3,6 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form(action="/search?name=")
+   input(type="text" name="name" placeholder="Search by Username")
+   input(type="submit" value="Submit")
